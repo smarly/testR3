@@ -37,14 +37,13 @@
       }
 
       async function init() {
-          if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode') && params.has('signalStrength')) {
+          if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode')) {
               const requestBody = {
                   cellTowers: [{
                       cellId: parseInt(params.get('cellId')),
                       locationAreaCode: parseInt(params.get('locationAreaCode')),
                       mobileCountryCode: parseInt(params.get('mobileCountryCode')),
-                      mobileNetworkCode: parseInt(params.get('mobileNetworkCode')),
-                      signalStrength: parseInt(params.get('signalStrength'))
+                      mobileNetworkCode: parseInt(params.get('mobileNetworkCode'))
                   }]
               };
 

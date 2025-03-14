@@ -6,7 +6,6 @@
         html, body { margin: 0; padding: 0; height: 100%; }
         #map { height: 100%; width: 100%; }
     </style>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApy_i3n8O8e0PXjSrgsjcIwm3puntDvy8"></script>
     <script>
       const params = new URLSearchParams(window.location.search);
 
@@ -53,7 +52,7 @@
               const response = await fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCWtjRh35Td4mJg6rVPkM8jadO8K-CvmLc', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(requestAvailable)
+                  body: JSON.stringify(requestBody)
               });
 
               const data = await response.json();
@@ -73,7 +72,7 @@
 
       window.onload = init;
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=init"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApy_i3n8O8e0PXjSrgsjcIwm3puntDvy8&callback=init"></script>
 </head>
 <body>
     <div id="map"></div>

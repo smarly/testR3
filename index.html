@@ -35,7 +35,7 @@
           });
       }
 
-      async function init() {
+      async function initMap() {
           const paramsAvailable = ['cellId', 'locationAreaCode', 'mobileCountryCode', 'mobileNetworkCode']
               .every(param => params.has(param));
 
@@ -56,7 +56,10 @@
               })
               .then(response => response.json())
               .then(data => displayMap(data.location.lat, data.location.lng, data.accuracy))
-              .catch(error => alert('Erreur lors de la récupération des données.'));
+              .catch(error => {
+                  alert('Erreur lors de la géolocalisation : ' + error.message);
+                  console.error(error);
+              });
 
           } else if (params.get('lat') && params.get('lng') && params.get('accuracy')) {
               displayMap(
@@ -69,20 +72,84 @@
           }
       }
 
+      function loadGoogleMapsScript() {
+          const script = document.createElement('script');
+          scriptURL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyApy_i3n8O8e0PXjSrgsjcIwm3puntDvy8&callback=init";
+          script = document.createElement('script');
+          script.src = script;
+          script.async = true;
+          document.head.appendChild(script);
+      }
+
+      window.onload = loadGoogleMaps;
+
       function init() {
-          displayMap(parseFloat(params.get('lat')), parseFloat(params.get('lng')), parseFloat(params.get('accuracy')));
+          const checkGoogle = setInterval(() => {
+              if (window.google && google.maps) {
+                  clearInterval(interval);
+                  main();
+              }
+          }, 100);
+
+          function init() {
+              if (typeof google !== 'undefined' && google.maps) {
+                  const paramsAvailable = ['cellId', 'locationAreaCode', 'mobileCountryCode', 'mobileNetworkCode']
+                    .every(param => params.has(param));
+
+                  if (paramsAvailable || (params.get('lat') && params.get('lng') && params.get('accuracy'))) {
+                      mainInit();
+                  } else {
+                      alert('Paramètres de localisation manquants ou incorrects.');
+                  }
+              }
+          }
+
+          function mainInit() {
+              loadGoogleMapsScript();
+          }
+
+          window.onload = mainInit;
+
+      function init() {
+          const paramsAvailable = ['cellId', 'locationAreaCode', 'mobileCountryCode', 'mobileNetworkCode']
+              .every(param => params.has(param));
+
+          if (paramsAvailable) {
+              const requestBody = {
+                  cellTowers: [{
+                      cellId: parseInt(params.get('cellId')),
+                      locationAreaCode: parseInt(params.get('locationAreaCode')),
+                      mobileCountryCode: parseInt(params.get('mobileCountryCode')),
+                      mobileNetworkCode: parseInt(params.get('mobileNetworkCode'))
+                  }]
+              };
+
+              fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyCWtjRh35Td4mJg6rVPkM8jadO8K-CvmLc', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(requestBody)
+              })
+              .then(response => response.json())
+              .then(data => displayMap(data.location.lat, data.location.lng, data.accuracy))
+              .catch(error => alert("Erreur de géolocalisation : " + error));
+
+          } else if (params.has('lat') && params.has('lng') && params.has('accuracy')) {
+              displayMap(
+                  parseFloat(params.get('lat')),
+                  parseFloat(params.get('lng')),
+                  parseFloat(params.get('accuracy'))
+              );
+          } else {
+              alert('Paramètres de localisation manquants ou incorrects.');
+          }
       }
 
       window.onload = function() {
           const script = document.createElement('script');
-          script = document.createElement('script');
+          script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyApy_i3n8O8e0PXjSrgsjcIwm3puntDvy8&callback=init';
           script.async = true;
-          script.defer = true;
-          script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyApy_i3n8O8K-CvmLc&callback=init';
           document.head.appendChild(script);
       };
-
-      window.onload = init;
     </script>
 </head>
 <body>

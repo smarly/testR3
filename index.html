@@ -10,11 +10,11 @@
     <script>
       const params = new URLSearchParams(window.location.search);
 
-      function displayMap(lat, lng, accuracy) {
+      function displayMap(lat, lng, accuracy,zoomLevel) {
           const position = { lat, lng };
-
+          const zoom = zoomLevel || 16;
           const map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 16,
+              zoom: zoom,
               center: position
           });
 

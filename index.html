@@ -56,7 +56,7 @@
 
                   const data = await response.json();
 
-                  displayMap(data.location.lat, data.location.lng, data.accuracy,10);
+                  displayMap(data.location.lat, data.location.lng, data.accuracy,4);
 
               } catch (error) {
                   alert('Erreur lors de la récupération des données de géolocalisation.');

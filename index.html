@@ -39,7 +39,6 @@
       async function init() {
           if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode')) {
               const requestBody = {
-                  considerIp: false,
                   cellTowers: [{
                       cellId: parseInt(params.get('cellId')),
                       locationAreaCode: parseInt(params.get('locationAreaCode')),

@@ -94,7 +94,7 @@
           } else           if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode')) {
 // Old firmware
               const requestBody = {
-//                    considerIp: false,
+                    considerIp: false,
                     cellTowers: [{
                       cellId: parseInt(params.get('cellId')),
                       locationAreaCode: parseInt(params.get('locationAreaCode')),

@@ -41,10 +41,10 @@
               const requestBody = {
                     considerIp: false,
                     cellTowers: [{
-                      cellId: parseInt(params.get('cellId')),
-                      locationAreaCode: parseInt(params.get('locationAreaCode')),
-                      mobileCountryCode: parseInt(params.get('mobileCountryCode')),
-                      mobileNetworkCode: parseInt(params.get('mobileNetworkCode'))
+                      cellId: parseInt(params.get('gcid')),
+                      locationAreaCode: parseInt(params.get('lac')),
+                      mobileCountryCode: parseInt(params.get('mcc')),
+                      mobileNetworkCode: parseInt(params.get('mnc'))
                   }]
               };
               const requestBodyhere = {
@@ -54,7 +54,7 @@
                       "cid": parseInt(params.get('gcid')),
                       "rsrp": parseInt(params.get('r0')),
                       "nmr": [
-                        { "earfcn": parseInt(params.get('f0')), "pci": parseInt(params.get('c0')), "rsrp":  parseInt(params.get('r0')) },
+                        { "earfcn": parseInt(params.get('f0' ?? '0')), "pci": parseInt(params.get('c0' ?? '0')), "rsrp":  parseInt(params.get('r0' ?? '-120')) },
                         { "earfcn": 1300, "pci": 331, "rsrp": -107 }
                           ]
                         }

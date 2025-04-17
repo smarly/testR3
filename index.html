@@ -91,23 +91,6 @@
                                   console.error(error);
                               }
               }
-/*              
-             try {
-                  const response = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBz0ufefQxA0sxOAGLBIQY7wsRs6FTxMUQ`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(requestBody)
-                  });
-
-                  const data = await response.json();
-
-                  displayMap(data.location.lat, data.location.lng, data.accuracy,12);
-
-              } catch (error) {
-                  alert('Erreur lors de la récupération des données de géolocalisation.');
-                  console.error(error);
-              }
-*/
           } else           if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode')) {
 // Old firmware
               const requestBody = {
@@ -119,40 +102,7 @@
                       mobileNetworkCode: parseInt(params.get('mobileNetworkCode'))
                   }]
               };
-              const requestBodyhere = {
-                  "lte": [{
-                      "mcc": 208,
-                      "mnc": 1,
-                      "cid": 20464390,
-                      "rsrp": -130,
-                      "nmr": [
-                        { "earfcn": 6400, "pci": 29, "rsrp":  -86 },
-                        { "earfcn": 6400, "pci": 289, "rsrp": -92 },
-                        { "earfcn": 524, "pci": 289, "rsrp": -100 },
-                        { "earfcn": 1300, "pci": 35, "rsrp": -102 },
-                        { "earfcn": 524, "pci": 35, "rsrp": -106 },
-                        { "earfcn": 1300, "pci": 331, "rsrp": -107 }
-                          ]
-                        }
-                      ]
-                    };
 
-              try {
-                  const responsehere = await fetch(`https://positioning.hereapi.com/v2/locate?apiKey=VeuOjQIbrTWzv0gnMWifrJB8RArqvMgobo7MJt4p1DY`, {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(requestBodyhere)
-                  });
-
-                  const datahere = await responsehere.json();
-
-                  displayMap(datahere.location.lat, datahere.location.lng, datahere.location.accuracy,12);
-
-              } catch (error) {
-                  alert('here geoloc error');
-                  console.error(error);
-              }
-/*              
              try {
                   const response = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBz0ufefQxA0sxOAGLBIQY7wsRs6FTxMUQ`, {
                       method: 'POST',
@@ -168,7 +118,7 @@
                   alert('Erreur lors de la récupération des données de géolocalisation.');
                   console.error(error);
               }
-*/
+
           } else if (params.has('lat') && params.has('lng') && params.has('accuracy')) {
               displayMap(
                   parseFloat(params.get('lat')),

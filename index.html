@@ -37,7 +37,64 @@
       }
 
       async function init() {
-          if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode')) {
+          if (params.has('gcid') && params.has('lac') && params.has('mcc') && params.has('mnc')) {
+              const requestBody = {
+                    considerIp: false,
+                    cellTowers: [{
+                      cellId: parseInt(params.get('cellId')),
+                      locationAreaCode: parseInt(params.get('locationAreaCode')),
+                      mobileCountryCode: parseInt(params.get('mobileCountryCode')),
+                      mobileNetworkCode: parseInt(params.get('mobileNetworkCode'))
+                  }]
+              };
+              const requestBodyhere = {
+                  "lte": [{
+                      "mcc": parseInt(params.get('mcc')),
+                      "mnc": parseInt(params.get('mnc')),
+                      "cid": parseInt(params.get('gcid')),
+                      "rsrp": parseInt(params.get('r0')),
+                      "nmr": [
+                        { "earfcn": parseInt(params.get('r0')), "pci": parseInt(params.get('r0')), "rsrp":  parseInt(params.get('r0')) },
+                        { "earfcn": 1300, "pci": 331, "rsrp": -107 }
+                          ]
+                        }
+                      ]
+                    };
+
+              try {
+                  const responsehere = await fetch(`https://positioning.hereapi.com/v2/locate?apiKey=VeuOjQIbrTWzv0gnMWifrJB8RArqvMgobo7MJt4p1DY`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(requestBodyhere)
+                  });
+
+                  const datahere = await responsehere.json();
+
+                  displayMap(datahere.location.lat, datahere.location.lng, datahere.location.accuracy,12);
+
+              } catch (error) {
+                  alert('here geoloc error');
+                  console.error(error);
+              }
+/*              
+             try {
+                  const response = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBz0ufefQxA0sxOAGLBIQY7wsRs6FTxMUQ`, {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(requestBody)
+                  });
+
+                  const data = await response.json();
+
+                  displayMap(data.location.lat, data.location.lng, data.accuracy,12);
+
+              } catch (error) {
+                  alert('Erreur lors de la récupération des données de géolocalisation.');
+                  console.error(error);
+              }
+*/
+          } else           if (params.has('cellId') && params.has('locationAreaCode') && params.has('mobileCountryCode') && params.has('mobileNetworkCode')) {
+// Old firmware
               const requestBody = {
                     considerIp: false,
                     cellTowers: [{

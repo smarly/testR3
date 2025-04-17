@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Position du véhicule</title>
+    <title>Ikaria</title>
     <style>
         html, body { height: 100%; margin: 0; padding: 0; }
         #map { height: 100%; width: 100%; }
@@ -21,7 +21,7 @@
           new google.maps.Marker({
               position,
               map,
-              title: "Position du véhicule"
+              title: "Watch location"
           });
 
           new google.maps.Circle({
@@ -87,7 +87,7 @@
                                   displayMap(data.location.lat, data.location.lng, data.accuracy,12);
                 
                               } catch (error) {
-                                  alert('Google geoloc error');
+                                  alert('Geolocation not available');
                                   console.error(error);
                               }
               }
@@ -153,7 +153,7 @@
                   parseFloat(params.get('accuracy'))
               );
           } else {
-              alert('Paramètres de localisation manquants ou incorrects.');
+              alert('Geolocation not available');
           }
       }
 

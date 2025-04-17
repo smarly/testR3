@@ -39,7 +39,7 @@
       async function init() {
           if (params.has('gcid') && params.has('lac') && params.has('mcc') && params.has('mnc')) {
               const requestBody = {
-                    considerIp: false,
+//                    considerIp: false,
                     cellTowers: [{
                       cellId: parseInt(params.get('gcid')),
                       locationAreaCode: parseInt(params.get('lac')),

@@ -52,7 +52,7 @@
                       "mcc": parseInt(params.get('mcc')),
                       "mnc": parseInt(params.get('mnc')),
                       "cid": parseInt(params.get('gcid')),
-                      "rsrp": parseInt(params.get('r0')),
+                      "rsrp": parseInt(params.get('r0') ?? '-120'),
                       "nmr": [
                         { "earfcn": parseInt(params.get('f0') ?? '0'), "pci": parseInt(params.get('c0') ?? '0'), "rsrp":  parseInt(params.get('r0') ?? '-120') },
                         { "earfcn": parseInt(params.get('f1') ?? '0'), "pci": parseInt(params.get('c1') ?? '0'), "rsrp":  parseInt(params.get('r1') ?? '-120') },

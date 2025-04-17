@@ -74,6 +74,8 @@
 
                   const datahere = await responsehere.json();
 
+                    displayMap(data.location.lat, data.location.lng, data.accuracy,12);
+
               } catch (error) {
                   alert('here geoloc error');
                   console.error(error);
